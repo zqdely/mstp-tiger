@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+	<!-- 子项目java下文件目录 -->
+    <groupId>com.threepicture</groupId>
+    <artifactId>microserver-user-all</artifactId>
+    <!-- 
+    	修改<packaging>jar</packaging> 改为 <packaging>pom</packaging>
+    	这是一个父工程，实际是一个聚合工程，它没有实际代码，它的作用是抽象出子工程公用的内容
+    	不加的话会报这样的错误
+    	Project build error: Invalid packaging for parent POM cn.itcast.maven.HelloParent:0.0.1-SNAPSHOT, must be "pom" but is "jar"
+     -->
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <description>three picture project parent pom</description>
+	
+	<!-- 子项目 -->
+    <modules>
+        <module>microserver-user-cust</module>
+		<module>microserver--user-security</module>
+		<module>microserver-user-chat</module>
+    </modules>
+	
+    <!-- 编码和java版本 -->
+    <properties>
+		<!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 编译时的编码 --> 
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<!-- java版本 -->
+        <java.version>1.8</java.version>
+        <!-- springCloud版本 -->
+        <spring-cloud.version>Edgware.SR2</spring-cloud.version>
+    </properties>
+	
+	<!-- 父依赖 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <!--版本号过高的可能会出现问题-->
+        <version>1.5.19.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+	
+	<!-- 其他依赖 -->
+    <dependencies>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- BASE64Encoder/BASE64Decoder类在sun.misc包下，是sun公司的内部方法，后期有删除的潜在可能，建议使用apache commons.codec下的Base64替代。 加密：Base64.encodeBase64String(...);揭秘：Base64.decodeBase64(...);-->
+		<dependency>
+		     <groupId>commons-codec</groupId>
+		     <artifactId>commons-codec</artifactId>
+		    <!--  <version>${commons-codec.version}</version> -->
+		</dependency>
+		<!-- Netty 高性能/异步事件驱动的NIO框架 -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.1.4.Final</version>
+		</dependency>
+		<!-- google-guava工具包可以处理I/O，字符串，多线程，限流等 -->		
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<!-- <version>25.1-jre</version> -->
+		</dependency>
+        <!--swagger-ui-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.6.1</version>
+            <scope>compile</scope>
+        </dependency>
+		<!-- Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.6.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- feign和zuul默认需要依赖ribbon -->
+        <dependency>
+        	<groupId>org.springframework.cloud</groupId>
+        	<artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+		<!-- springframework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aspects</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+		<!-- 日志依赖 -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <!-- 格式化对象，方便输出日志 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.41</version>
+        </dependency>
+    </dependencies>
+	<!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <!-- <version>Dalston.RC1</version> -->
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+	<!-- 打包 -->
+    <build>
+        <plugins>
+			<!-- Spring boot 包含的maven插件 默认打包成jar -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- <version>2.5.2</version> -->
+                <configuration>
+                	<failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <!-- 跳过测试打包 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+	<!-- maven 仓库配置 pom中repositories属性 -->
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>common-milestones</id>
+            <name>common Milestones</name>
+            <url>https://mvnrepository.com</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+
+</project>
