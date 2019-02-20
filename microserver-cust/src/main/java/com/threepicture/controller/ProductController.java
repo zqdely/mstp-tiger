@@ -16,13 +16,14 @@ import com.threepicture.server.impl.ProductService;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
-@RestController
-@RequestMapping("/query-cust")
+@Deprecated //测试类已经废弃
+@RestController//控制器注解(@Controller会将返回的信息当作URL处理。@RestController直接将信息当作Content处理。)
+@RequestMapping("/query-cust")//url注解
 public class ProductController {
 	
 	private Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
-	//注入服务
+	//注入
 	@Autowired
 	private ProductService productService;
 	
@@ -37,7 +38,7 @@ public class ProductController {
 	
 	@RequestMapping("/queryUserById/{id}")
 	public Map<String, Object> queryUserById(@PathVariable String id){
-		
+//		if(!CollectionUtils.isEmpty(custIfo))
 		return this.productService.queryUserById(id);
 		
 	}

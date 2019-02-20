@@ -94,6 +94,12 @@
         	<groupId>org.springframework.cloud</groupId>
         	<artifactId>spring-cloud-starter-ribbon</artifactId>
         </dependency>
+        
+        <dependency>
+        	<groupId>org.apache.commons</groupId>
+        	<artifactId>commons-lang3</artifactId>
+        	<version>3.3</version>
+        </dependency>
 		<!-- springframework -->
         <dependency>
             <groupId>org.springframework</groupId>

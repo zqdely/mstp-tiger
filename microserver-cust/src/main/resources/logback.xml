@@ -51,14 +51,28 @@
     
     
 
-	<logger name="com.*" level="info" additivity="false">
+	<!-- <logger name="com.*" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="root"/>
+        <appender-ref ref="ERROR" />
+    </logger> -->
+    <!-- <logger name="org.springframework.*" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="root"/>
+        <appender-ref ref="ERROR" />
+    </logger> -->
+    <logger name="org.mybatis.*" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="root"/>
         <appender-ref ref="ERROR" />
     </logger>
-    
+    <logger name="com.threepicture.*" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="root"/>
+        <appender-ref ref="ERROR" />
+    </logger>
 	<!-- root级别控制 -->
-	<root level="info">
+	<root level="dubug">
 		<appender-ref ref="STDOUT"/>
 		<appender-ref ref="ERROR" />
 		<appender-ref ref="root" />

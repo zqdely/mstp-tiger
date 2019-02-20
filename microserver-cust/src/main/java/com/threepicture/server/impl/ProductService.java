@@ -10,6 +10,7 @@ import com.threepicture.dao.mapper.ProductDao;
 import com.threepicture.dao.model.User;
 import com.threepicture.server.ProductController;
 
+@Deprecated //测试类已废弃
 @Service
 //@Transactional
 public class ProductService implements ProductController{

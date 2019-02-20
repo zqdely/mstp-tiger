@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.threepicture.dao.mapper.QueryCustInfoDao">
+
+<!-- 	<resultMap id="BaseResultMap" type="com.kanshu.dao.model.User"> 
+		<id column="id" jdbcType="BIGINT" property="id" /> 
+		<result column="username" jdbcType="VARCHAR" property="userName" />
+		<result column="address" jdbcType="VARCHAR" property="address" /> 
+	</resultMap> -->
+	
+	<sql id="USER_TABLE">
+		ms_user
+	</sql>
+	
+	<sql id="QUERY_INIT_USERINFO">
+        id,nick_name as nickname,password,status
+    </sql>
+    
+    <sql id="QUERY_All_USERINFO">
+        nick_name as nickname,password,status,source_id as sourceid,degree,create_by createby,modify_by as modifyby,modify_time modifytime,user_name as username,password_backup passwordbackup,mobile,email,tp_relation as tprelation,current_address as currentaddress,born_address as bornaddress,
+        loves,signature,fans_count as fanscount,support_count as supportcount,gender,avatar,profile,remark,create_time as createtime
+    </sql>
+
+	<select id="queryCustInfoByNickName" resultType="java.util.Map" parameterType="java.util.Map">
+		select 
+			<include refid="QUERY_INIT_USERINFO"/>
+		from
+			<include refid="USER_TABLE"/>
+		where ms_user.nick_name = #{custNickName}
+	</select>
+	
+	<select id="queryCustAllInfoById" resultType="java.util.Map" parameterType="java.util.Map">
+		select 
+			<include refid="QUERY_All_USERINFO"/>
+		from
+			ms_user,ms_user_info
+		where ms_user.id = #{custId} and ms_user.user_info_id = ms_user_info.id
+	</select>
+
+</mapper>

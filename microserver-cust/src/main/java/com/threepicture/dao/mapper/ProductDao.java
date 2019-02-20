@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.threepicture.dao.model.User;
 
+@Deprecated//测试类已经废弃
 //@Mapper
 public interface ProductDao {
 	
